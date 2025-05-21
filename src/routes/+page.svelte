@@ -1,12 +1,62 @@
-<div>
-    <div id="top_bar">
-        <h1 id='name'>려유</h1>
-        <div>
-            <div id = top_bar_right>
-                <input >
-                <div>
-                    <button>
-                       로그인 
+<script lang="ts">
+    let menuToggle: boolean = false
+    let travelMenuOpen: boolean = false;
+
+    const MenuSwitch = () => {
+        menuToggle = !menuToggle
+    }
+        const toggleTravelMenu = () => {
+        travelMenuOpen = !travelMenuOpen;
+    }
+</script>
+{#if menuToggle}
+    <div id="menu_body">
+        <div
+            id="menu_bg"
+            on:click={MenuSwitch}
+            on:keydown={(e) => e.key === 'Enter' && MenuSwitch()}
+            role="button"
+            tabindex="0">
+        </div>
+
+        <div id="menu_bar">
+            <button id="close_btn" on:click={MenuSwitch}>✕</button>
+            <h2 class="menu_title">로그인/회원가입</h2>
+            <ul class="menu_list">
+                <li>내 예약</li>
+                <li>
+                    도시별 여행정보
+                    <span class="badge">무료로 확인해 보세요!</span>
+                </li>
+                <li>교통편</li>
+                <li on:click={toggleTravelMenu} 
+                    on:keydown={(e) => e.key === 'Enter' && toggleTravelMenu()}
+                    role="button"
+                    tabindex="0"
+                    style="display: flex; justify-content: space-between; align-items: center;">
+                    여행상품
+                    <span>{travelMenuOpen ? '▲' : '▼'}</span>
+                </li>   
+
+                {#if travelMenuOpen}
+                <ul class="submenu">
+                    <li>항공</li>
+                    <li>숙소</li>
+                    <li>투어·티켓</li>
+                </ul>
+                {/if}
+            </ul>
+        </div>
+    </div>
+{/if}
+
+<div id="main_bg">
+    <div id="tor_bar">
+        <h1 id="title_text">려유</h1>
+        <div id="top_bor_right">
+            <div id="search_box">
+                <button class="top_bar_btn">
+                    <img src="search.svg" alt="돋보기 사진"/>
                 </button>
                 <input id="search"/>
             </div>
