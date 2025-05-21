@@ -141,7 +141,7 @@
         width: 750px;
         height: 30px;
         border: none;
-        padding: 7px;
+        padding: 3px 8px;
         border-radius: 30px;
         background-color: #f3f3f3;
     }
