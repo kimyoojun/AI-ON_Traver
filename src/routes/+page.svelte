@@ -48,38 +48,43 @@
 {#if menutoggle}
     <div id="menu_body">
         <div id="menu_bg"></div>
+        
         <div id="menu_bar">
             <div id="close_bg">
                 <button class="close_btn" on:click={Menu_switch}>
                     <img src="icon/x.svg" alt="취소 버튼" class="close_img">
                 </button>
             </div>
+
             <div class="menu_txt_background">
-                <h1>
-                    <a href="sign_in" class="menu_txt">로그인</a>
-                    /
-                    <a href="sign_up" class="menu_txt">회원가입</a>
-                </h1>
+                <p class="sign_txt">
+                    <a href="sign_in" class="sign">로그인</a>
+                    |
+                        <a href="sign_up" class="sign">회원가입</a>
+                </p>
             </div>
-            <div class="menu_txt_background">
-                <h2>
-                    <a href="/" class="menu_txt">교통편</a>
-                </h2>
-            </div>
-                <div class="menu_txt_background">
-                <h2>
-                    <a href="/" class="menu_txt">도시별 여행정보</a>
-                </h2>
-            </div>
-                <div class="menu_txt_background">
-                <h2>
-                    <a href="/" class="menu_txt">랜터카</a>
-                </h2>
-            </div>
-                <div class="menu_txt_background">
-                <h2>
-                    <a href="/" class="menu_txt">교통편</a>
-                </h2>
+
+            <div id="menu_txt_box_top">
+                <div class="menu_txt_box">
+                    <p>
+                        <a href="/" class="menu_txt">교통편</a>
+                    </p>
+                </div>
+                    <div class="menu_txt_box">
+                    <p>
+                        <a href="/" class="menu_txt">지역별 여행정보</a>
+                    </p>
+                </div>
+                    <div class="menu_txt_box">
+                    <p>
+                        <a href="/" class="menu_txt">숙소</a>
+                    </p>
+                </div>
+                    <div class="menu_txt_box">
+                    <p>
+                        <a href="/" class="menu_txt">랜터카</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -198,6 +203,10 @@
         background-color: white;
         position: absolute;
         right: 0;
+        top: 0;
+        padding: 20px;
+        box-shadow: -2px 0 10px rbga(0,0,0,0.2);
+        overflow-y: outo;
     }
 
     #top_bar {
@@ -273,11 +282,44 @@
         height: 50px;
         display: flex;
         align-items: center;
-        padding: 10px 0;
-        border-bottom: 2px solid black;
+        padding: 8px 0;
+        border-bottom: 1.5px solid rgb(156, 156, 156);
+    }
+
+    #menu_txt_box_top {
+        list-style: none;
+        padding:0;
+        margin-top: 30px;
+    }
+
+    .menu_txt_box {
+        width: 100%;
+        height: 50px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .sign_txt {
+        font-size: 20pt;
+        font-weight:600;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        color: black;
+        text-decoration: none;
+        margin-left: 25px;
+    }
+
+    .sign {
+        color: black;
+        text-decoration: none;
     }
 
     .menu_txt {
+        font-size: 15pt;
+        font-weight: 500;
         color: black;
         text-decoration: none;
         margin-left: 25px;
