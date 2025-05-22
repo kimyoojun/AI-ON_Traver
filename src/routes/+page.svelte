@@ -4,6 +4,7 @@
     // =flase: 변수를 false로 설정 
     let menutoggle: boolean = false
     let searchToggle: boolean = false
+    let travelMenuToggle: boolean = false
 
     const Menu_switch = () => {
         menutoggle = !menutoggle
@@ -11,6 +12,10 @@
 
     const SearchSwitch = () => {
         searchToggle = !searchToggle
+    }
+
+    const TravelMenuOpen = () => {
+        travelMenuToggle = !travelMenuToggle
     }
 </script>
 
@@ -70,20 +75,30 @@
                         <a href="/" class="menu_txt">교통편</a>
                     </p>
                 </div>
-                    <div class="menu_txt_box">
+                <div class="menu_txt_box">
                     <p>
                         <a href="/" class="menu_txt">지역별 여행정보</a>
                     </p>
                 </div>
-                    <div class="menu_txt_box">
-                    <p>
-                        <a href="/" class="menu_txt">숙소</a>
-                    </p>
-                </div>
-                    <div class="menu_txt_box">
+                <div class="menu_txt_box">
                     <p>
                         <a href="/" class="menu_txt">랜터카</a>
                     </p>
+                </div>
+                <div class="menu_txt_box">
+                    <button on:click={TravelMenuOpen} id="sub_menu_btn">
+                        <p>
+                            <a href="/" id="sub_menu_txt">여행상품</a>
+                            {travelMenuToggle ? '▲' : '▼'}
+                        </p>
+                    </button>
+                    {#if travelMenuToggle}
+                        <ul class="sub_menu_box">
+                            <li><a href="/" class="sub_menu_box_list">항공</a></li>
+                            <li><a href="/" class="sub_menu_box_list">숙소</a></li>
+                            <li><a href="/" class="sub_menu_box_list">투어/티켓</a></li>
+                        </ul>
+                    {/if}
                 </div>
             </div>
         </div>
@@ -259,6 +274,43 @@
         height: 35px;
     }
 
+    #sub_menu_btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        background-color: transparent;
+        margin: 0;
+    }
+
+    #sub_menu_txt {
+        font-size: 15pt;
+        font-weight: 500;
+        color:black;
+        text-decoration: none;
+        margin-left: 25px;
+    }
+
+    .sub_menu_box {
+        list-style: none;
+        padding-left: 15px;
+        margin-top: 10px;
+    }
+
+    .sub_menu_box > li {
+        font-weight: 400;
+        padding: 5px 0;
+        color: black;
+        text-decoration: none;
+    }
+
+    .sub_menu_box_list {
+        font-weight: 450;
+        color: black;
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+    }
     #close_bg {
         width: 100%;
         padding: 10px 0;
