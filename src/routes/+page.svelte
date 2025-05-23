@@ -1,6 +1,7 @@
 <script lang="ts">
     let menuToggle: boolean = false
-    let travelMenuOpen: boolean = false;
+    let travelMenuOpen: boolean = false
+    let searchToggle: boolean = false
 
     const MenuSwitch = () => {
         menuToggle = !menuToggle
@@ -8,7 +9,44 @@
         const toggleTravelMenu = () => {
         travelMenuOpen = !travelMenuOpen;
     }
+        const SearchSwitch = () => {
+        searchToggle = !searchToggle
+    }
+
 </script>
+{#if searchToggle}
+    <div id="search_body">
+        <div id="search_bg">
+
+        </div>
+        <div id="search_bar">
+            <div id="search_top_bar">
+                <h1 id="search_title">려유</h1>
+                <div id="search_bar_search_box">
+                    <button class="top_bar_btn">
+                        <img src="search.svg" alt="돋보기 사진"/>
+                    </button>
+                    <input id="search_bar_search"/>
+                </div>
+                <button on:click={SearchSwitch} class="close_btn">
+                    ✕
+                </button>
+            </div>
+            <div id="search_bar_body">
+                <div id="popular_box">
+                    <h2>인기 검색어</h2>
+                    <div>
+                        <button class="popular">제주</button>
+                        <button class="popular">부산</button>
+                        <button class="popular">경주</button>
+                        <button class="popular">창원</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+
 {#if menuToggle}
     <div id="menu_body">
         <div
@@ -20,8 +58,12 @@
         </div>
 
         <div id="menu_bar">
-            <button id="close_btn" on:click={MenuSwitch}>✕</button>
-            <h2 class="menu_title">로그인/회원가입</h2>
+            <button class ="close_btn" on:click={MenuSwitch}>✕</button>
+            <h2 class="menu_title">
+                <a href="/sign_in" class = login_inout> 로그인 </a>
+                /
+                <a href="/sign_out"class = login_inout> 회원가입 </a>
+            </h2>
             <ul class="menu_list">
                 <li>내 예약</li>
                 <li>
@@ -58,7 +100,7 @@
                 <button class="top_bar_btn">
                     <img src="search.svg" alt="돋보기 사진"/>
                 </button>
-                <input id="search"/>
+                <input id="search"on:click ={SearchSwitch}/>
             </div>
             <button class="top_bar_btn" on:click={MenuSwitch}>
                 <img src="menu-2.svg" alt="메뉴 사진" id="menu_btn"/>
@@ -68,6 +110,77 @@
 </div>
 
 <style>
+    #search_body {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    #search_bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: black;
+        opacity : 0.5;
+    }
+
+    #search_bar {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        top: 0;
+        background-color: white;
+    }
+
+    #search_top_bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #search_title {
+        margin-left: 20px;
+    }
+
+    #search_bar_search_box {
+        display: flex;
+        background-color: #f3f3f3;
+        border-radius: 30px;
+        padding: 10px;
+    }
+
+    #search_bar_search {
+        width: 750px;
+        height: 20px;
+        border: none;
+        padding: 7px;
+        background-color: #f3f3f3;
+        border-radius: 30px;
+    }
+
+    #search_bar_body {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    #popular_box {
+        width: 800px;
+    }
+
+    .popular {
+        font-size: 18px;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 20px;
+        margin-right: 15px;
+        font-weight: 400;
+    }
+
+    #search_bar_search:focus {
+        outline: none;
+    }
     #menu_body {
         width: 100%;
         height: 100%;
@@ -145,7 +258,7 @@
         overflow-y: auto;
     }
 
-    #close_btn {
+    .close_btn {
         background: none;
         border: none;
         font-size: 24px;
@@ -193,5 +306,7 @@
         font-weight: 400;
         padding: 5px 0;
     }
-
+    .login_inout{
+        text-decoration-line: none;
+    }
 </style>
