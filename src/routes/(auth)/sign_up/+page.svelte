@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { supabase } from "$lib/supabaseClient";
+    import { supabase } from "../../../lib/supabaseClient";
     import { uuid } from "@supabase/supabase-js/dist/main/lib/helpers";
 
     let email: string
@@ -21,6 +21,7 @@
 
         goto("/sign_in")
     }
+
 </script>
 
 <div id="main_box">
@@ -32,10 +33,10 @@
     <div id="body">
         <div id="login_box">
             <h1 id="login_text">회원가입</h1>
-            <p id="welcome_text">개발자들을 위한 AI:ON 멤버 커뮤니티에 오신것을 <br/>환영합니다.</p>
+            <p id="welcome_text">"려유"를 찾아 오신것을 환영합니다.</p>
             <input placeholder="이메일 주소" class="login_input" bind:value={email}/>
-            <input placeholder="비밀번호" class="login_input" bind:value={pw}/>
-            <button id="login_btn" on:click={sign_up_btn}>로그인</button>
+            <input placeholder="비밀번호" class="login_input" bind:value={pw} type="password"/>
+            <button id="login_btn" on:click={sign_up_btn}>회원가입</button>
         </div>
     </div>
 </div>
@@ -57,7 +58,8 @@
 
     #title_a {
         text-decoration-line: none;
-        color: white;
+        color: black;
+        font: 32pt;
     }
 
     #body {
