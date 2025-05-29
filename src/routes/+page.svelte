@@ -1,6 +1,7 @@
 <script lang="ts">
     let menuToggle: boolean = false
     let searchToggle: boolean = false
+    let travelMenuTooggle: boolean = false
 
     const MenuSwitch = () => {
         menuToggle = !menuToggle
@@ -8,6 +9,10 @@
 
     const SearchSwitch = () => {
         searchToggle = !searchToggle
+    }
+
+    const TravelMenuSwitch = () => {
+        travelMenuTooggle = !travelMenuTooggle
     }
 </script>
 
@@ -56,31 +61,41 @@
                 </button>
             </div>
             <div class="menu_txt_bg">
-                <h1>
+                <h1 id="menu_txt_title1">
                     <a href="/signIn" class="menu_txt">로그인</a>
                     /
                     <a href="/signUp" class="menu_txt">회원가입</a>
                 </h1>
             </div>
             <div class="menu_txt_bg">
-                <h2>
+                <h2 class="menu_txt_title">
                     <a href="/" class="menu_txt">교통편</a>
                 </h2>
             </div>
             <div class="menu_txt_bg">
-                <h2>
+                <h2 class="menu_txt_title">
                     <a href="/" class="menu_txt">도시별 여행정보</a>
                 </h2>
             </div>
             <div class="menu_txt_bg">
-                <h2>
+                <h2 class="menu_txt_title">
                     <a href="/" class="menu_txt">렌터카</a>
                 </h2>
             </div>
             <div class="menu_txt_bg">
-                <h2>
-                    <a href="/" class="menu_txt">숙소</a>
-                </h2>
+                <button on:click={TravelMenuSwitch} id="menu_menu_btn">
+                    <h2 class="menu_txt_title">
+                        <a href="/" class="menu_txt">여행 상품</a>
+                        {travelMenuTooggle ? '▲' : '▼'}
+                    </h2>
+                </button>
+                {#if travelMenuTooggle}
+                    <ul id="menu_menu_list">
+                        <li>항공</li>
+                        <li>숙소</li>
+                        <li>항공</li>
+                    </ul>
+                {/if}
             </div>
         </div>
     </div>
@@ -200,7 +215,7 @@
 
     #close_bg {
         width: 100%;
-        padding: 15px;
+        padding: 15px 0;
     }
 
     .close_btn {
@@ -208,6 +223,7 @@
         border: none;
         margin-right: 20px;
         cursor: pointer;
+        margin-left: 15px;
     }
 
     .close_img {
@@ -217,11 +233,35 @@
 
     .menu_txt_bg {
         width: 100%;
-        height: 50px;
+        height: auto;
         display: flex;
-        align-items: center;
-        padding: 10px 20px;
+        justify-content: center;
+        padding: 10px 0;
         border-bottom: 2px solid black;
+        flex-direction: column;
+    }
+
+    #menu_menu_btn {
+        background-color: transparent;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+    }
+
+    #menu_menu_list {
+        margin-left: 10px;
+    }
+
+    #menu_txt_title1 {
+        margin-left: 20px;
+    }
+
+    .menu_txt_title {
+        margin: 0 20px 0 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.5rem;
     }
 
     .menu_txt {
