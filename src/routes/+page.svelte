@@ -311,6 +311,7 @@
         display: flex;
         justify-content: space-between;
     }
+    
     #close_bg {
         width: 100%;
         padding: 10px 0;
