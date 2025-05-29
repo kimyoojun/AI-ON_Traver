@@ -62,7 +62,7 @@
             <h2 class="menu_title">
                 <a href="/sign_in" class = login_inout> 로그인 </a>
                 /
-                <a href="/sign_out"class = login_inout> 회원가입 </a>
+                <a href="/sign_up"class = login_inout> 회원가입 </a>
             </h2>
             <ul class="menu_list">
                 <li>내 예약</li>

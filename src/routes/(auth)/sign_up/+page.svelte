@@ -1,18 +1,25 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { supabase } from "$lib/supabaseClient";
-
+    import {uuid} from "@supabase/supabase-js/dist/main/lib/helpers";
+    
     let email: string
     let ps: string
 
-    const signInBtn = async () => {
-        const { data: signInData, error: signInError } = await supabase
+    const singUpBtn = async () =>{
+        const{error: singUpError}=await supabase
             .from("apa")
-            .upsert({ email: email, password: ps })
-            .select()
+            .insert({
+                id: uuid(),
+                email:email,
+                password: ps
+            })
+        if (singUpError) return console.error(singUpError)
 
-        if (signInError) return console.error(signInError)
+        email = ""
+        ps + ""
 
-        if (signInData) return console.log(signInData)
+        goto("/sign_in")
     }
 </script>
 <div id = main>
@@ -25,11 +32,11 @@
     <div id =body>
         <div id = login_box >
             <h1 id = logo_text> 려유</h1>
-            <h3 id = login_text> 로그인 </h3>
+            <h3 id = login_text> 회원가입 </h3>
             <p id = welcome_text>"려유"의 세계에 오신걸 환영합니다.</p>
-            <input placeholder="이메일을 입력하시오."class = login_input bind:value={email}/>
-            <input placeholder="비밀번호"class = login_input bind:value={ps}/>
-            <button id = button_ep on:click={signInBtn}>로그인</button> 
+            <input placeholder="이메일을 입력하시오."class = "login_input" bind:value={email}/>
+            <input placeholder="비밀번호"class = "login_input" bind:value={ps} type="password"/>
+            <button id = button_ep on:click={singUpBtn}>로그인</button> 
         </div>
     </div>
 </div>
