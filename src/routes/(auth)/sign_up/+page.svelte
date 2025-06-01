@@ -7,20 +7,16 @@
     let ps: string
 
     const singUpBtn = async () =>{
-        const{error: singUpError}=await supabase
-            .from("apa")
-            .insert({
-                id: uuid(),
-                email:email,
-                password: ps
-            })
-        if (singUpError) return console.error(singUpError)
+        const{error}= await supabase.auth.signUp
+        ({
+            email: email,
+            password: ps
+        })
+        if (error) return console.error(error)
 
-        email = ""
-        ps + ""
-
-        goto("/sign_in")
+        await goto('/sign_in')
     }
+
 </script>
 <div id = main>
     <div id= top_bar>
