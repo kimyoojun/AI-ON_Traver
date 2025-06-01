@@ -1,26 +1,20 @@
 <script lang="ts">
     import {supabase} from "$lib/supabaseClient";
-    import {uuid} from "@supabase/supabase-js/dist/main/lib/helpers";
     import {goto} from "$app/navigation";
 
     let email: string
     let pw: string
 
     const singUpBtn = async () => {
-        const {error: singUpError} = await supabase
-            .from("users")
-            .insert({
-                id: uuid(),
-                email: email,
-                password: pw,
-            })
+        const { error } = await supabase.auth.signUp
+        ({
+            email: email,
+            password: pw
+        })
 
-        if (singUpError) return console.error(singUpError)
+        if (error) return console.error(error)
 
-        email = ""
-        pw = ""
-
-        goto("/signIn")
+        await goto("/signIn")
     }
 </script>
 
