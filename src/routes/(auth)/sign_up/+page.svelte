@@ -7,21 +7,13 @@
     let pw: string
 
     const sign_up_btn = async () => {
-        const {error:sign_up_Error} = await supabase
-            .from("sign_in")
-            .insert({
-                id: uuid(),
-                email: email,
-                password: pw,
-            })
-        if (sign_up_Error) return console.error(sign_up_Error)
-
-        email=""
-        pw=""
-
-        goto("/sign_in")
+        const {error} = await supabase.auth.signUp({
+            email: email,
+            password: pw
+        })
+        if (error) return console.error(error)
+        await goto("/sign_in")
     }
-
 </script>
 
 <div id="main_box">

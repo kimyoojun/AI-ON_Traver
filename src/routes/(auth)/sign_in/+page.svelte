@@ -1,18 +1,22 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { supabase } from "../../../lib/supabaseClient";
 
     let email: string
     let pw: string
 
     const sign_in_btn = async () => {
-        const { data: signInData, error: signInError } = await supabase
-            .from("sign_in")
-            .upsert({ email: email, password: pw })
-            .select()
+        if (!email || !pw) return alert("이메일이나 비밀번호를 입력해주세요.")
 
-        if (signInError) return console.error(signInError)
+        const {error,data} = await supabase.auth.signInWithPassword
+    ({
+        email: email,
+        password: pw
+    })
+    if (error) return console.error(error)
+    
+    await goto("/")
 
-        if (signInData) return console.log(signInData)
     }
 </script>
 
