@@ -1,4 +1,8 @@
 <script lang="ts">
+    import {onMount} from "svelte";
+    import {supabase} from "$lib/supabaseClient";
+    import {session} from "$lib/store/session";
+
     let menuToggle: boolean = false
     let searchToggle: boolean = false
     let travelMenuTooggle: boolean = false
@@ -14,6 +18,12 @@
     const TravelMenuSwitch = () => {
         travelMenuTooggle = !travelMenuTooggle
     }
+
+    onMount(() => {
+        supabase.auth.getSession().then(({ data }) => {
+            session.set(data.session)
+        })
+    })
 </script>
 
 {#if searchToggle}
@@ -61,11 +71,17 @@
                 </button>
             </div>
             <div class="menu_txt_bg">
-                <h1 id="menu_txt_title1">
-                    <a href="/signIn" class="menu_txt">로그인</a>
-                    /
-                    <a href="/signUp" class="menu_txt">회원가입</a>
-                </h1>
+                {#if $session === null}
+                    <h1 id="menu_txt_title1">
+                        <a href="/signIn" class="menu_txt">로그인</a>
+                        /
+                        <a href="/signUp" class="menu_txt">회원가입</a>
+                    </h1>
+                {:else}
+                    <img src="icon/user-circle.svg" alt="유저 프로필" id="user_profil"/>
+                    <div>닉네임</div>
+                {/if}
+
             </div>
             <div class="menu_txt_bg">
                 <h2 class="menu_txt_title">
@@ -229,6 +245,11 @@
     .close_img {
         width: 35px;
         height: 35px;
+    }
+
+    #user_profil {
+        width: 15px;
+        height: 15px;
     }
 
     .menu_txt_bg {
