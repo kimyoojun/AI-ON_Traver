@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { session } from "$lib/store/session";
+    import { supabase } from "$lib/supabaseClient";
+    import {onMount} from "svelte";
     // let: 변수(menutoggle)의 값을 바꿀수 있음음
     // boolean: 참과 거짓 타입 설정 
     // =flase: 변수를 false로 설정 
@@ -17,6 +20,14 @@
     const TravelMenuOpen = () => {
         travelMenuToggle = !travelMenuToggle
     }
+
+    // onMount함수는 따로 실행해줄 필요없이 웹페이지를 켜자마자 실행되는 함수
+    onMount(() => {
+        supabase.auth.getSession().then(({data}) => {
+            session.set(data.session)
+        })
+    })
+
 </script>
 
 {#if searchToggle}
@@ -62,32 +73,37 @@
             </div>
 
             <div class="menu_txt_background">
-                <p class="sign_txt">
+                {#if $session === null}
+                    <p class="sign_txt">
                     <a href="sign_in" class="sign">로그인</a>
                     |
-                        <a href="sign_up" class="sign">회원가입</a>
-                </p>
+                    <a href="sign_up" class="sign">회원가입</a>
+                    </p>
+                {:else}
+                    <img src="icon/user-circle.svg" alt="유저 프로필" id="user_profile"/>
+                    <div id="user_nickname">닉네임</div>
+                {/if}
             </div>
 
             <div id="menu_txt_box_top">
                 <div class="menu_txt_box">
-                    <p>
+                    <p class="p_error">
                         <a href="/" class="menu_txt">교통편</a>
                     </p>
                 </div>
                 <div class="menu_txt_box">
-                    <p>
+                    <p class="p_error">
                         <a href="/" class="menu_txt">지역별 여행정보</a>
                     </p>
                 </div>
                 <div class="menu_txt_box">
-                    <p>
+                    <p class="p_error">
                         <a href="/" class="menu_txt">랜터카</a>
                     </p>
                 </div>
                 <div class="menu_txt_box">
                     <button on:click={TravelMenuOpen} id="sub_menu_btn">
-                        <p>
+                        <p class="p_error">
                             <a href="/" id="sub_menu_txt">여행상품</a>
                             {travelMenuToggle ? '▲' : '▼'}
                         </p>
@@ -269,6 +285,17 @@
         cursor: pointer;
     }
 
+    #user_profile {
+        width: 40px;
+        height: 40px;
+        padding: 12px;
+    }
+
+    #user_nickname {
+        font-size: 18pt;
+        font-weight: 525;
+    }
+
     #menu_btn {
         width: 35px;
         height: 35px;
@@ -288,7 +315,7 @@
         font-weight: 500;
         color:black;
         text-decoration: none;
-        margin-left: 25px;
+        margin: 0 0 0 19px;
     }
 
     .sub_menu_box {
@@ -346,13 +373,15 @@
     }
 
     .menu_txt_box {
+        flex-direction: column;
         width: 100%;
-        height: 50px;
+        height: auto;
         font-weight: 600;
         display: flex;
-        align-items: center;
-        padding: 13px 0;
+        justify-content: center;
+        padding: 20px 0;
         border-bottom: 1px solid #eee;
+        margin: 0;
     }
 
     .sign_txt {
@@ -378,4 +407,7 @@
         margin-left: 25px;
     }
 
+    .p_error {
+        margin: 0;
+    }
 </style>
