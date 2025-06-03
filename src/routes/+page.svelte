@@ -1,4 +1,8 @@
 <script lang="ts">
+    import { session } from "$lib/store/session";
+    import { supabase } from "$lib/supabaseClient";
+    import { onMount } from "svelte";
+
     let menuToggle: boolean = false
     let travelMenuOpen: boolean = false
     let searchToggle: boolean = false
@@ -6,12 +10,19 @@
     const MenuSwitch = () => {
         menuToggle = !menuToggle
     }
-        const toggleTravelMenu = () => {
+    const toggleTravelMenu = () => {
         travelMenuOpen = !travelMenuOpen;
     }
-        const SearchSwitch = () => {
+    const SearchSwitch = () => {
         searchToggle = !searchToggle
     }
+    onMount(() =>{
+        supabase.auth.getSession().then(({data}) => {
+            session.set(data.session)
+        })
+
+    })
+
 
 </script>
 {#if searchToggle}
@@ -59,11 +70,16 @@
 
         <div id="menu_bar">
             <button class ="close_btn" on:click={MenuSwitch}>✕</button>
-            <h2 class="menu_title">
-                <a href="/sign_in" class = login_inout> 로그인 </a>
-                /
-                <a href="/sign_up"class = login_inout> 회원가입 </a>
-            </h2>
+                {#if $session === null}
+                    <h2 class="menu_title">
+                        <a href="/sign_in" class = login_inout> 로그인 </a>
+                        /
+                        <a href="/sign_up"class = login_inout> 회원가입 </a>
+                    </h2>
+                {:else}
+                    <img src='user-circle.svg' alt="유저 프로필" id="user_profil"/>
+                    <div>닉네임</div>
+                {/if}
             <ul class="menu_list">
                 <li>내 예약</li>
                 <li>
