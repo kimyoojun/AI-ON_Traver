@@ -5,14 +5,43 @@
     
     let email: string
     let ps: string
+    let name: string
+    let age: number
+    let number: number
+    let userId: string
+
+
+    const page ={
+        a:1,
+        b:2,
+    }
 
     const singUpBtn = async () =>{
-        const{error}= await supabase.auth.signUp
-        ({
-            email: email,
-            password: ps
-        })
-        if (error) return console.error(error)
+        if (page.a){
+            const{error, data}= await supabase.auth.signUp
+            ({
+                email: email,
+                password: ps
+            })
+            if (error) return console.error(error)
+            
+            userId = data?.user?.id ??''
+
+            console.log(userId)
+
+            page.a += 1
+        } else if (page.b){
+            const{error: usersError, data:usersData}  = await supabase
+                .from('users')
+                .insert({
+                    id:userId,
+                    age:age,
+                    number:number,
+                    name:name
+                })
+            if (usersError) return console.error(usersError)
+        }
+        
 
         await goto('/sign_in')
     }
@@ -27,12 +56,29 @@
 
     <div id =body>
         <div id = login_box >
-            <h1 id = logo_text> 려유</h1>
-            <h3 id = login_text> 회원가입 </h3>
-            <p id = welcome_text>"려유"의 세계에 오신걸 환영합니다.</p>
-            <input placeholder="이메일을 입력하시오."class = "login_input" bind:value={email}/>
-            <input placeholder="비밀번호"class = "login_input" bind:value={ps} type="password"/>
+           {#if page.a}
+                <h1 id = logo_text> 려유</h1>
+                <h3 id = login_text> 회원가입 </h3>
+                <p id = welcome_text>"려유"의 세계에 오신걸 환영합니다.</p>
+                <input placeholder="이메일을 입력하시오."class = "login_input" bind:value={email}/>
+                <input placeholder="비밀번호"class = "login_input" bind:value={ps} type="password"/>
+                
+            
+                {:else if page.b}
+                <h1 id = logo_text> 려유</h1>
+                <h3 id = login_text> 회원가입 </h3>
+                <p id = welcome_text>"려유"의 세계에 오신걸 환영합니다.</p>
+                <input placeholder="이름"class = "login_input" bind:value={name}/>
+                <input placeholder="전화 번호"class = "login_input" bind:value={number}/>
+                <input placeholder="나이"class = "login_input" bind:value={age}/>
+
+            {/if}
             <button id = button_ep on:click={singUpBtn}>로그인</button> 
+                    {#if page.a}
+                        다음
+                    {:else if page.b}
+                        회원가입
+                    {/if}
         </div>
     </div>
 </div>
