@@ -2,7 +2,7 @@
     import { session } from "$lib/store/session";
     import { supabase } from "$lib/supabaseClient";
     import {onMount} from "svelte";
-    // let: 변수(menutoggle)의 값을 바꿀수 있음음
+    // let: 변수(menutoggle)의 값을 바꿀수 있음
     // boolean: 참과 거짓 타입 설정 
     // =flase: 변수를 false로 설정 
     let menutoggle: boolean = false
@@ -322,6 +322,7 @@
         list-style: none;
         padding-left: 15px;
         margin-top: 10px;
+        margin: 20px;
     }
 
     .sub_menu_box > li {

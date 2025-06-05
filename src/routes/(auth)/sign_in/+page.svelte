@@ -2,13 +2,13 @@
     import { goto } from "$app/navigation";
     import { supabase } from "../../../lib/supabaseClient";
 
-    let email: string
+    let email: string       // let : 변수의 값을 변경가능
     let pw: string
 
     const sign_in_btn = async () => {
-        if (!email || !pw) return alert("이메일이나 비밀번호를 입력해주세요.")
+        if (!email || !pw) return alert("이메일이나 비밀번호를 입력해주세요.")      // alert는 경고창
 
-        const {error,data} = await supabase.auth.signInWithPassword
+        const {error,data} = await supabase.auth.signInWithPassword     // 뒤 함수: 이메일을 기준으로 패스워드가 일치하는지 안하는지 확인, 값이 맞다면 data 반환, 틀리다면 error를 반환
     ({
         email: email,
         password: pw
@@ -16,7 +16,6 @@
     if (error) return console.error(error)
     
     await goto("/")
-
     }
 </script>
 
@@ -38,7 +37,6 @@
                 |
                 <a href="sign_up" class="word">회원가입</a>
             </div>
-
         </div>
     </div>
 </div>
