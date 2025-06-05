@@ -25,7 +25,7 @@
             <a href="/" id="title_a">AI:ON</a>
         </h1>
     </div>
-    <div id="body">
+    <div id="bodys">
         <div id="login_box">
             <h1 id="login_text">로그인</h1>
             <p id="welcome_text">개발자들을 위한 AI:ON 멤버 커뮤니티에 오신것을 <br/>환영합니다.</p>
@@ -62,13 +62,12 @@
         font: 32pt;
     }
 
-    #body {
+    #bodys {
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
     #login_box {

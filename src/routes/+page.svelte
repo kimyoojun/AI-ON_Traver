@@ -235,7 +235,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        padding: 20px;
+        padding: 0;
         box-shadow: -2px 0 10px rbga(0,0,0,0.2);
         overflow-y: outo;
     }
