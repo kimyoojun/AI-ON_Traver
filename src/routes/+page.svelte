@@ -63,7 +63,10 @@
 
 {#if menutoggle}
     <div id="menu_body">
-        <div id="menu_bg"></div>
+        <button  on:click={Menu_switch} aria-label="메뉴 열기" id="menu_bg_btn">
+            <div id="menu_bg"></div>
+        </button>
+        
         
         <div id="menu_bar">
             <div id="close_bg">
@@ -219,13 +222,21 @@
         position: absolute;
     }
 
-    #menu_bg {
+    #menu_bg_btn {
         width: 100%;
         height: 100%;
         position: absolute;
+        justify-content: end;
+        background-color: transparent;
+        padding: 0;
+        border: none;
+    }
+
+    #menu_bg {
+        width: 100%;
+        height: 100%;
         background-color: black;
         opacity: 0.5;
-        justify-content: end;
     }
 
     #menu_bar {
